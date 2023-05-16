@@ -1,0 +1,12 @@
+image: python:3.10.8
+
+pipelines:
+  default:
+    - step:
+        name: Inventory tests
+        caches:
+          - pip
+        script:
+          - pip install pipenv --upgrade
+          - pipenv install --system
+          - pytest inventory_application -s -v --durations=0 --cov=.
