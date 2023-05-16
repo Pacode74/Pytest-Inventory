@@ -6,6 +6,15 @@ name = "pypi"
 [packages]
 autopep8 = "*"
 jupyter = "*"
+pytest = "*"
+black = "*"
+coverage = "*"
+pytest-cov = "*"
+pytest-xdist = "*"
+pytest-sugar = "*"
+pytest-check = "*"
+pytest-clarity = "*"
+faker = "*"
 
 [dev-packages]
 
