@@ -1,5 +1,5 @@
-# test_inventory.py
-from inventory_application.apps.inventory import addition
+# test_basic.py
+from inventory_application.apps.basic import addition
 
 
 def test_basic(demo_fixt) -> None:

@@ -89,8 +89,8 @@ __pycache__/
 # Exclude following folders:
 allure_reports/
 #images/
-jupyter_notebooks/
-/jupyter_notebooks/*/
+my_jupyter_notebooks/
+/my_jupyter_notebooks/*/
 # api/coronavstech/coronavstech/settings.py
 #api/coronavstech/db.sqlite3
 #api/coronavstech/db.sqlite3_clone
