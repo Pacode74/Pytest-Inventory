@@ -57,6 +57,53 @@ def repr_fixt(request) -> None:
     return request.param
 
 
+@pytest.fixture(
+    params=[
+        (
+            "Intel-core",
+            "Intel",
+            7,
+            3,
+            1,
+            1,
+            5,
+            "AM3",
+            92,
+            "CPU(category='cpu', name='Intel-core', manufacturer='Intel', total=6, allocated=1, remaining=5, core=5, "
+            "socket='AM3', power_watts=92)",
+        ),
+        (
+            "AMD-i9",
+            "AMD",
+            10,
+            4,
+            3,
+            1,
+            7,
+            "AM5",
+            93,
+            "CPU(category='cpu', name='AMD-i9', manufacturer='AMD', total=9, allocated=0, remaining=9, core=7, "
+            "socket='AM5', power_watts=93)",
+        ),
+        (
+            "Intel-Pentium",
+            "Intel",
+            10,
+            7,
+            5,
+            1,
+            9,
+            "AM4",
+            94,
+            "CPU(category='cpu', name='Intel-Pentium', manufacturer='Intel', total=9, allocated=1, remaining=8, "
+            "core=9, socket='AM4', power_watts=94)",
+        ),
+    ]
+)
+def repr_fixt_cpu(request) -> None:
+    return request.param
+
+
 # ------------------used in test_str_method_v2 ----------------------
 
 
@@ -80,6 +127,29 @@ def repr_fixt(request) -> None:
     ]
 )
 def str_fixt(request) -> None:
+    return request.param
+
+
+@pytest.fixture(
+    params=[
+        (
+            "Intel-core",
+            "Intel",
+            "CPU(name='Intel-core', manufacturer='Intel')",
+        ),
+        (
+            "AMD-i9",
+            "AMD",
+            "CPU(name='AMD-i9', manufacturer='AMD')",
+        ),
+        (
+            "Intel-Pentium",
+            "Intel",
+            "CPU(name='Intel-Pentium', manufacturer='Intel')",
+        ),
+    ]
+)
+def str_fixt_cpu(request) -> None:
     return request.param
 
 

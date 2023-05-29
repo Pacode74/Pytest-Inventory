@@ -10,7 +10,7 @@ import types
 # have this decorator.
 # pytestmark = pytest.mark.xyz or pytestmark = [pytest.mark.xyz, pytest.mark.abc]
 
-
+pytestmark = pytest.mark.resources
 # to test specific test write: $ pytest -k name_of_the_test
 
 # to check coverage: $ coverage run -m pytest .
@@ -550,7 +550,7 @@ def test_resource_is_instance_of_type() -> None:
 
 
 # --test that Mod class has 10 attributes --
-def test_instance_has_ten_attrs() -> None:
+def test_instance_has_10_property_attrs() -> None:
     """Test that class has 10 attrs
     ['allocated',
     'category',
@@ -562,10 +562,10 @@ def test_instance_has_ten_attrs() -> None:
     'purchase',
     'remaining',
     'total']"""
-    m = Resources(name='Intel-core', manufacturer='Intel')
+    m = Resources(name="Intel-core", manufacturer="Intel")
     actual = len([attr for attr in dir(m) if not attr.startswith("_")])
     expected = 10
-    assert actual == expected, f"Mod class does not have {expected} attributes."
+    assert actual == expected, f"Resource class does not have {expected} attributes."
 
 
 def test_instance_has_ten_attributes() -> None:
@@ -580,7 +580,7 @@ def test_instance_has_ten_attributes() -> None:
     'purchase',
     'remaining',
     'total']"""
-    m = Resources(name='Intel-core', manufacturer='Intel')
+    m = Resources(name="Intel-core", manufacturer="Intel")
     attributes = [attr for attr in dir(m) if not attr.startswith("_")]
     for attr in attributes:
         msg = f"The Mod instance does not have a {attr} attribute."
@@ -589,20 +589,20 @@ def test_instance_has_ten_attributes() -> None:
 
 def test_if_ten_attributes_belong_to_class() -> None:
     """Test that 10 attrs belongs to class
-       ['allocated',
-       'category',
-       'claim',
-       'died',
-       'freeup',
-       'manufacturer',
-       'name',
-       'purchase',
-       'remaining',
-       'total']"""
-    m = Resources(name='Intel-core', manufacturer='Intel')
+    ['allocated',
+    'category',
+    'claim',
+    'died',
+    'freeup',
+    'manufacturer',
+    'name',
+    'purchase',
+    'remaining',
+    'total']"""
+    m = Resources(name="Intel-core", manufacturer="Intel")
     attributes = [attr for attr in dir(m) if not attr.startswith("_")]
     for attr in attributes:
-        msg = f"{attr} attribute is not in instance scope."
+        msg = f"{attr} attribute is not in class scope."
         with check:
             assert attr in Resources.__dict__, msg
         with check:
@@ -619,7 +619,7 @@ def test_if_five_attributes_belong_to_instance() -> None:
     '  _total': 0,
     '_allocated': 0,
     '_remaining': 0}"""
-    m = Resources(name='Intel-core', manufacturer='Intel')
+    m = Resources(name="Intel-core", manufacturer="Intel")
     repr(m)  # need to call installs to create _remaining attr
     with check:
         assert "_name" in m.__dict__
@@ -634,7 +634,7 @@ def test_if_five_attributes_belong_to_instance() -> None:
 
 
 def test_instance_has__five_attributes() -> None:
-    m = Resources(name='Intel-core', manufacturer='Intel')
+    m = Resources(name="Intel-core", manufacturer="Intel")
     repr(m)  # need to call installs to create _remaining attr
     attributes = ["_name", "_manufacturer", "_total", "_allocated", "_remaining"]
     for attr in attributes:
@@ -690,7 +690,6 @@ def test_category_is_property() -> None:
         assert isinstance(inspect.getattr_static(Resources, "category"), property)
 
 
-
 def test_validate_str_is_function() -> None:
     with check:
         assert isinstance(
@@ -699,11 +698,10 @@ def test_validate_str_is_function() -> None:
         )
     with check:
         assert isinstance(
-            inspect.getattr_static(
-                Resources, "_validate_str"
-            ),
+            inspect.getattr_static(Resources, "_validate_str"),
             types.FunctionType,
         )
+
 
 def test_validate_int_is_function() -> None:
     with check:
@@ -713,9 +711,7 @@ def test_validate_int_is_function() -> None:
         )
     with check:
         assert isinstance(
-            inspect.getattr_static(
-                Resources, "_validate_int"
-            ),
+            inspect.getattr_static(Resources, "_validate_int"),
             types.FunctionType,
         )
 
@@ -728,13 +724,12 @@ def test_nt_resource_is_function() -> None:
         )
     with check:
         assert isinstance(
-            inspect.getattr_static(
-                Resources, "_nt_resource"
-            ),
+            inspect.getattr_static(Resources, "_nt_resource"),
             types.FunctionType,
         )
 
-def test_nt_purchase_is_function() -> None:
+
+def test_purchase_is_function() -> None:
     with check:
         assert isinstance(
             Resources.__dict__["purchase"],
@@ -742,9 +737,7 @@ def test_nt_purchase_is_function() -> None:
         )
     with check:
         assert isinstance(
-            inspect.getattr_static(
-                Resources, "purchase"
-            ),
+            inspect.getattr_static(Resources, "purchase"),
             types.FunctionType,
         )
 
@@ -757,9 +750,7 @@ def test_claim_is_function() -> None:
         )
     with check:
         assert isinstance(
-            inspect.getattr_static(
-                Resources, "claim"
-            ),
+            inspect.getattr_static(Resources, "claim"),
             types.FunctionType,
         )
 
@@ -772,11 +763,10 @@ def test_freeup_is_function() -> None:
         )
     with check:
         assert isinstance(
-            inspect.getattr_static(
-                Resources, "freeup"
-            ),
+            inspect.getattr_static(Resources, "freeup"),
             types.FunctionType,
         )
+
 
 def test_died_is_function() -> None:
     with check:
@@ -786,22 +776,18 @@ def test_died_is_function() -> None:
         )
     with check:
         assert isinstance(
-            inspect.getattr_static(
-                Resources, "died"
-            ),
+            inspect.getattr_static(Resources, "died"),
             types.FunctionType,
         )
 
 
-def test_purchase_is_callable() -> (
+def test_purchase_is_callable() -> None:
+    assert callable(Resources.purchase), f"'purchase' is not callable."
+
+
+def test_attributes_name_manufacturer_total_allocated_remaining_are_not_callable() -> (
     None
 ):
-    assert callable(
-        Resources.purchase
-    ), f"'purchase' is not callable."
-
-
-def test_attributes_name_manufacturer_total_allocated_remaining_are_not_callable() -> None:
     with check:
         assert not callable(Resources.name), f"'name' is callable."
     with check:
