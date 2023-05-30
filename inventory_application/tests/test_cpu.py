@@ -193,12 +193,12 @@ def test_total_allocated_remaining_category_property_cpu(
         assert r.remaining == expected["remaining"]
     with check:
         assert r.category == expected["category"]
-    # with check:
-    #     assert r.cores == expected["cores"]
-    # with check:
-    #     assert r.socket == expected["socket"]
-    # with check:
-    #     assert r.power_watts == expected["power_watts"]
+    with check:
+        assert r.cores == expected["cores"]
+    with check:
+        assert r.socket == expected["socket"]
+    with check:
+        assert r.power_watts == expected["power_watts"]
 
 
 @pytest.mark.parametrize(
@@ -646,22 +646,25 @@ def test_instance_has_13_property_attrs_cpu() -> None:
     ), f"{type(m).__name__} class does not have {expected} attributes."
 
 
-def test_instance_has_ten_attributes_cpu() -> None:
+def test_instance_has_13_attributes_cpu() -> None:
     """Test that class has 10 attrs
     ['allocated',
     'category',
     'claim',
+    'cores',
     'died',
     'freeup',
     'manufacturer',
     'name',
+    'power_watts',
     'purchase',
     'remaining',
+    'socket',
     'total']"""
     m = CPU(name="Intel-core", manufacturer="Intel")
     attributes = [attr for attr in dir(m) if not attr.startswith("_")]
     for attr in attributes:
-        msg = f"The Mod instance does not have a {attr} attribute."
+        msg = f"The CPU instance does not have a {attr} attribute."
         assert hasattr(m, attr), msg
 
 
@@ -713,7 +716,7 @@ def test_if_eight_private_attributes_belong_to_instance_cpu() -> None:
         assert "_power_watts" in m.__dict__
 
 
-def test_instance_has__five_attributes_cpu() -> None:
+def test_instance_has_8_attributes_cpu() -> None:
     m = CPU(name="Intel-core", manufacturer="Intel")
     repr(m)  # need to call installs to create _remaining attr
     attributes = [
@@ -724,14 +727,14 @@ def test_instance_has__five_attributes_cpu() -> None:
         "_remaining",
         "_cores",
         "_socket",
-        "power_watts",
+        "_power_watts",
     ]
     for attr in attributes:
         msg = f"The CPU instance does not have {attr} attribute."
         assert hasattr(m, attr), msg
 
 
-def test_name_is_property() -> None:
+def test_name_is_property_cpu() -> None:
     with check:
         assert isinstance(CPU.name, property)
     # alternatively:
@@ -817,7 +820,7 @@ def test_validate_str_is_function_cpu() -> None:
         )
 
 
-def test_validate_int_is_function() -> None:
+def test_validate_int_is_function_cpu() -> None:
     """In child class _validate_int is not in class or instance dictionary"""
     with check:
         assert isinstance(
@@ -831,7 +834,7 @@ def test_validate_int_is_function() -> None:
         )
 
 
-def test_nt_cpu_is_function() -> None:
+def test_nt_cpu_is_function_cpu() -> None:
     with check:
         assert isinstance(
             CPU.__dict__["_nt_cpu"],

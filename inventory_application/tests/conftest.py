@@ -104,6 +104,43 @@ def repr_fixt_cpu(request) -> None:
     return request.param
 
 
+
+@pytest.fixture(
+    params=[
+        (
+            "Intel-core",
+            "Intel",
+            7,
+            3,
+            1,
+            1,
+            200,
+            "Storage(category='storage', name='Intel-core', manufacturer='Intel', total=6, allocated=1, remaining=5, capacity_GB=200)",
+        ),
+        (
+            "AMD-i9",
+            "AMD",
+            10,
+            4,
+            3,
+            1,
+            100,
+            "Storage(category='storage', name='AMD-i9', manufacturer='AMD', total=9, allocated=0, remaining=9, capacity_GB=100)",
+        ),
+        (
+            "Intel-Pentium",
+            "Intel",
+            10,
+            7,
+            5,
+            1,
+            500,
+            "Storage(category='storage', name='Intel-Pentium', manufacturer='Intel', total=9, allocated=1, remaining=8, capacity_GB=500)",
+        ),
+    ]
+)
+def repr_fixt_storage(request) -> None:
+    return request.param
 # ------------------used in test_str_method_v2 ----------------------
 
 
@@ -152,6 +189,28 @@ def str_fixt(request) -> None:
 def str_fixt_cpu(request) -> None:
     return request.param
 
+
+@pytest.fixture(
+    params=[
+        (
+            "Intel-core",
+            "Intel",
+            "Storage(name='Intel-core', manufacturer='Intel')",
+        ),
+        (
+            "AMD-i9",
+            "AMD",
+            "Storage(name='AMD-i9', manufacturer='AMD')",
+        ),
+        (
+            "Intel-Pentium",
+            "Intel",
+            "Storage(name='Intel-Pentium', manufacturer='Intel')",
+        ),
+    ]
+)
+def str_fixt_storage(request) -> None:
+    return request.param
 
 # ------------------for faker, used in test_simple_with_faker ------
 @pytest.fixture
