@@ -903,7 +903,7 @@ def test_freeup_is_function_cpu() -> None:
         )
 
 
-def test_died_is_function_of_CPU() -> None:
+def test_died_is_function_of_cpu() -> None:
     """In child class died is not in class or instance dictionary"""
     with check:
         assert isinstance(

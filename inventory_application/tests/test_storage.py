@@ -93,6 +93,7 @@ def test_setter_for_capacity_gb_storage(
         r.capacity_GB = new_capacity_gb
         assert r.capacity_GB == expected_new_capacity_gb
 
+
 @pytest.mark.parametrize(
     "name, manufacturer, purchase, claim, freeup, died, capacity_GB, expected",
     [
@@ -111,7 +112,7 @@ def test_setter_for_capacity_gb_storage(
                 total=6,
                 allocated=1,
                 remaining=5,
-                capacity_GB=120
+                capacity_GB=120,
             ),
         ),
         (
@@ -129,7 +130,7 @@ def test_setter_for_capacity_gb_storage(
                 total=9,
                 allocated=0,
                 remaining=9,
-                capacity_GB=200
+                capacity_GB=200,
             ),
         ),
         (
@@ -147,7 +148,7 @@ def test_setter_for_capacity_gb_storage(
                 total=9,
                 allocated=1,
                 remaining=8,
-                capacity_GB=500
+                capacity_GB=500,
             ),
         ),
     ],
@@ -160,7 +161,7 @@ def test_total_allocated_remaining_category_capacity_gb_property_storage(
     freeup: int,
     died: int,
     capacity_GB: int,
-    expected: dict
+    expected: dict,
 ) -> None:
     r = Storage(name=name, manufacturer=manufacturer)
     r.purchase(purchase)
@@ -332,7 +333,7 @@ def test_convert_str_to_instance_storage(
     freeup: int,
     died: int,
     expected: str,
-    capacity_gb: int
+    capacity_gb: int,
 ) -> None:
     r = Storage(name=name, manufacturer=manufacturer)
     rr = eval(str(r))
@@ -354,7 +355,10 @@ def test_namedtuple_fields_storage() -> None:
 # ----------------------------- testing how faker package works in testing -----------------------------
 def test_name_and_manufacturer_with_faker_storage(fake) -> None:
     d = [
-        {"Storage": fake.word().capitalize() + " Storage", "manufacturer": fake.company()}
+        {
+            "Storage": fake.word().capitalize() + " Storage",
+            "manufacturer": fake.company(),
+        }
         for _ in range(100)
     ]
     for dictionary in d:
@@ -653,7 +657,6 @@ def test_if_five_private_attributes_belong_to_instance_storage() -> None:
         assert "_capacity_GB" in m.__dict__
 
 
-
 def test_instance_has__6_attributes_storage() -> None:
     m = Storage(name="Intel-core", manufacturer="Intel")
     repr(m)  # need to call installs to create _remaining attr
@@ -663,7 +666,7 @@ def test_instance_has__6_attributes_storage() -> None:
         "_total",
         "_allocated",
         "_remaining",
-        "_capacity_GB"
+        "_capacity_GB",
     ]
     for attr in attributes:
         msg = f"The Storage instance does not have {attr} attribute."
@@ -724,6 +727,7 @@ def test_capacity_gb_is_property_storage() -> None:
     # alternatively:
     with check:
         assert isinstance(inspect.getattr_static(Storage, "capacity_GB"), property)
+
 
 def test_validate_str_is_function_storage() -> None:
     """In child class _validate_str is not in class or instance dictionary"""

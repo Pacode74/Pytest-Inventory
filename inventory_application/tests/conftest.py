@@ -104,7 +104,6 @@ def repr_fixt_cpu(request) -> None:
     return request.param
 
 
-
 @pytest.fixture(
     params=[
         (
@@ -141,6 +140,52 @@ def repr_fixt_cpu(request) -> None:
 )
 def repr_fixt_storage(request) -> None:
     return request.param
+
+
+@pytest.fixture(
+    params=[
+        (
+            "SkyHawk",
+            "Seagate",
+            7,
+            3,
+            1,
+            1,
+            120,
+            '2.5"',
+            5400,
+            "HDD(category='hdd', name='SkyHawk', manufacturer='Seagate', total=6, allocated=1, remaining=5, capacity_GB=120, size='2.5\"', rpm=5400)",
+        ),
+        (
+            "WD Blue",
+            "WD",
+            10,
+            4,
+            3,
+            1,
+            200,
+            '3.5"',
+            7000,
+            "HDD(category='hdd', name='WD Blue', manufacturer='WD', total=9, allocated=0, remaining=9, capacity_GB=200, size='3.5\"', rpm=7000)",
+        ),
+        (
+            "Barracuda",
+            "Seagate",
+            10,
+            7,
+            5,
+            1,
+            500,
+            '2.5"',
+            10000,
+            "HDD(category='hdd', name='Barracuda', manufacturer='Seagate', total=9, allocated=1, remaining=8, capacity_GB=500, size='2.5\"', rpm=10000)",
+        ),
+    ]
+)
+def repr_fixt_hdd(request) -> None:
+    return request.param
+
+
 # ------------------used in test_str_method_v2 ----------------------
 
 
@@ -212,9 +257,36 @@ def str_fixt_cpu(request) -> None:
 def str_fixt_storage(request) -> None:
     return request.param
 
+
+@pytest.fixture(
+    params=[
+        (
+            "SkyHawk",
+            "Seagate",
+            "HDD(name='SkyHawk', manufacturer='Seagate')",
+        ),
+        (
+            "WD Blue",
+            "WD",
+            "HDD(name='WD Blue', manufacturer='WD')",
+        ),
+        (
+            "Barracuda",
+            "Seagate",
+            "HDD(name='Barracuda', manufacturer='Seagate')",
+        ),
+    ]
+)
+def str_fixt_hdd(request) -> None:
+    return request.param
+
+
 # ------------------for faker, used in test_simple_with_faker ------
 @pytest.fixture
 def fake():
     fake = Faker()
     fake.seed_instance(1234)
     return fake
+
+
+# ----------
