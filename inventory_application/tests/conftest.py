@@ -186,6 +186,47 @@ def repr_fixt_hdd(request) -> None:
     return request.param
 
 
+@pytest.fixture(
+    params=[
+        (
+            "A400 SATA",
+            "Kingston",
+            7,
+            3,
+            1,
+            1,
+            120,
+            "A400 3.0 x4",
+            "SDD(category='sdd', name='A400 SATA', manufacturer='Kingston', total=6, allocated=1, remaining=5, capacity_GB=120, interface='A400 3.0 x4')",
+        ),
+        (
+            "Barracuda",
+            "Seagate",
+            10,
+            4,
+            3,
+            1,
+            200,
+            "PCIe",
+            "SDD(category='sdd', name='Barracuda', manufacturer='Seagate', total=9, allocated=0, remaining=9, capacity_GB=200, interface='PCIe')",
+        ),
+        (
+            "KC3000",
+            "Kingston",
+            10,
+            7,
+            5,
+            1,
+            500,
+            "PCIe 4.0 NVMe",
+            "SDD(category='sdd', name='KC3000', manufacturer='Kingston', total=9, allocated=1, remaining=8, capacity_GB=500, interface='PCIe 4.0 NVMe')",
+        ),
+    ]
+)
+def repr_fixt_sdd(request) -> None:
+    return request.param
+
+
 # ------------------used in test_str_method_v2 ----------------------
 
 
@@ -278,6 +319,29 @@ def str_fixt_storage(request) -> None:
     ]
 )
 def str_fixt_hdd(request) -> None:
+    return request.param
+
+
+@pytest.fixture(
+    params=[
+        (
+            "A400 SATA",
+            "Kingston",
+            "SDD(name='A400 SATA', manufacturer='Kingston')",
+        ),
+        (
+            "Barracuda",
+            "Seagate",
+            "SDD(name='Barracuda', manufacturer='Seagate')",
+        ),
+        (
+            "KC3000",
+            "Kingston",
+            "SDD(name='KC3000', manufacturer='Kingston')",
+        ),
+    ]
+)
+def str_fixt_sdd(request) -> None:
     return request.param
 
 
