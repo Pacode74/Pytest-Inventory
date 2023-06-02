@@ -2,11 +2,28 @@ image: python:3.10.8
 
 pipelines:
   default:
-    - step:
-        name: Inventory tests
-        caches:
-          - pip
-        script:
-          - pip install pipenv --upgrade
-          - pipenv install --system
-          - pytest inventory_application -s -v --durations=0 --cov=.
+    - parallel:
+      - step:
+          name: Inventory-Application tests
+          caches:
+            - pip
+          script:
+            - pip install pipenv --upgrade
+            - pipenv install --system
+            - pytest inventory_application -s -v --durations=0 --cov=.
+      - step:
+          name: Inventory-Application-Store-Multiple-Items tests
+          caches:
+            - pip
+          script:
+            - pip install pipenv --upgrade
+            - pipenv install --system
+            - pytest inventory_application_store_multiple_items -s -v --durations=0 --cov=.
+      - step:
+          name: Inventory-Application-Deep-Dive tests
+          caches:
+            - pip
+          script:
+            - pip install pipenv --upgrade
+            - pipenv install --system
+            - pytest inventory_application_deep_dive -s -v --durations=0 --cov=.
