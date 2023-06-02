@@ -59,4 +59,4 @@ jobs:
           pipenv install --system
       - name: Test with pytest
         run: |
-          pytest inventory_application_deep_dive -s -v --durations=0 --cov=.
+          pytest inventory_application_dd -s -v --durations=0 --cov=.

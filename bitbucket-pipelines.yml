@@ -26,4 +26,4 @@ pipelines:
           script:
             - pip install pipenv --upgrade
             - pipenv install --system
-            - pytest inventory_application_deep_dive -s -v --durations=0 --cov=.
+            - pytest inventory_application_dd -s -v --durations=0 --cov=.
