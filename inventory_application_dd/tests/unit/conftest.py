@@ -1,6 +1,7 @@
 # conftest.py
 import pytest
 from faker import Faker
+from inventory_application_dd.apps.models import inventory
 
 
 # --------------------- used for basic test to check that CI works correctly------------------
@@ -27,4 +28,19 @@ def fake():
     return fake
 
 
-# ----------
+# ---------- for test_create_resource_use_fixture----------------------
+
+
+@pytest.fixture
+def resource_values():
+    return {
+        "name": "Parrot",
+        "manufacturer": "Pirates A-Hoy",
+        "total": 100,
+        "allocated": 50,
+    }
+
+
+@pytest.fixture
+def resource(resource_values):
+    return inventory.Resource(**resource_values)
