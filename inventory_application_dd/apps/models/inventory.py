@@ -189,8 +189,8 @@ class CPU(Resource):
         """
         super().__init__(name, manufacturer, total, allocated)
 
-        validate_integer("cores", cores, 1)
-        validate_integer("power_watts", power_watts, 1)
+        validate_integer("cores", cores, min_value=1)
+        validate_integer("power_watts", power_watts, min_value=1)
 
         self._cores = cores
         self._socket = socket
