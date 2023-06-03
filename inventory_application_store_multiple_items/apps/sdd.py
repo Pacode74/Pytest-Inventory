@@ -7,5 +7,5 @@ class SDD(Storage):
         self._validate_str(name)
         self._validate_str(interface)
         for d in self._inventory:
-            if d['name'] == name:
-                d['interface'] = interface
+            if d["name"] == name:
+                d["interface"] = interface

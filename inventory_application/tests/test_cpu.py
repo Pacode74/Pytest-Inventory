@@ -11,6 +11,8 @@ import types
 # pytestmark = pytest.mark.xyz or pytestmark = [pytest.mark.xyz, pytest.mark.abc]
 pytestmark = pytest.mark.cpu
 
+# Command line: python -m pytest inventory_application/tests/test_cpu.py
+# alternatively:
 # to test specific test write: $ pytest -k name_of_the_test
 
 # to check coverage: $ coverage run -m pytest .

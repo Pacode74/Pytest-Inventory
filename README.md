@@ -3,7 +3,7 @@ Single Inheritance Project from Deep Dive course.
 - inventory_application is the first approach I took to implement the project where only one type of item can be stored.
 - inventory_application_store_multiple_items is the second approach I took to implement the project where multiple items
 can be stored.  
-- inventory_application_deep_dive is the third approach that the teacher shown how to implement the project.
+- inventory_application_dd is the third approach from Deep Dive course that the teacher shown how to implement the project.
 
 * Project description as per teacher's instructions:
 
