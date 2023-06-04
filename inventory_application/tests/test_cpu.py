@@ -4,19 +4,26 @@ from pytest_check import check
 import inspect
 import types
 
+"""
+Tests for CPU class
+Command line: python -m pytest tests/unit/test_cpu.py
 
-# --------in case I want to apply the same marker for all below pytest use below. xyz is the name of the marker:-----
-# It is a modular fixture. This means that every test function in this file after `pytestmark = pytest.mark.xyz` will
-# have this decorator.
-# pytestmark = pytest.mark.xyz or pytestmark = [pytest.mark.xyz, pytest.mark.abc]
+To run a specific test:
+Command line: python -m pytest inventory_application_dd/tests/unit/test_validators.py::TestIntegerValidator::test_error
+
+To run test under specific pattern:
+Command line: pytest -k "test_validate or test_some_other_test"
+
+I want to apply the same marker for all below pytest:
+pytestmark = pytest.mark.xyz or pytestmark = [pytest.mark.xyz, pytest.mark.abc]
+Also need to register the marker in pytest.ini
+Command line: pytest -m validate
+
+To check coverage: $ coverage run -m pytest .
+To generate coverage report: $ coverage html
+"""
+
 pytestmark = pytest.mark.cpu
-
-# Command line: python -m pytest inventory_application/tests/test_cpu.py
-# alternatively:
-# to test specific test write: $ pytest -k name_of_the_test
-
-# to check coverage: $ coverage run -m pytest .
-# generate coverage report: $ coverage html
 
 # ----------------------- Easy level tests: test CPU with different values ----
 

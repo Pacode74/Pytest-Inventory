@@ -11,7 +11,7 @@ Command line: pytest -k "test_validate or test_some_other_test"
 I want to apply the same marker for all below pytest:
 pytestmark = pytest.mark.resources_dd
 Also need to register the marker in pytest.ini
-Command line: pytest -m validate
+Command line: pytest -m resources_dd
 
 To check coverage: $ coverage run -m pytest .
 To generate coverage report: $ coverage html

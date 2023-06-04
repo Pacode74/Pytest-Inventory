@@ -1,22 +1,62 @@
+"""
+Tests for Resource class
+Command line: python -m pytest inventory_application/tests/test_resource.py
+
+To run a specific test:
+Command line: python -m pytest inventory_application/tests/test_validators.py::TestIntegerValidator::test_error
+
+To run test under specific pattern:
+Command line: pytest -k "test_validate or test_some_other_test"
+
+I want to apply the same marker for all below pytest:
+pytestmark = pytest.mark.xyz or pytestmark = [pytest.mark.xyz, pytest.mark.abc]
+pytestmark = pytest.mark.resources
+Also need to register the marker in pytest.ini
+Command line: pytest -m resources
+
+To check coverage: $ coverage run -m pytest .
+To generate coverage report: $ coverage html
+"""
+
+
 import pytest
 from inventory_application.apps.resources import Resources
 from pytest_check import check
 import inspect
 import types
 
-
-# --------in case I want to apply the same marker for all below pytest use below. xyz is the name of the marker:-----
-# It is a modular fixture. This means that every test function in this file after `pytestmark = pytest.mark.xyz` will
-# have this decorator.
-# pytestmark = pytest.mark.xyz or pytestmark = [pytest.mark.xyz, pytest.mark.abc]
-
 pytestmark = pytest.mark.resources
-# to test specific test write: $ pytest -k name_of_the_test
 
-# to check coverage: $ coverage run -m pytest .
-# generate coverage report: $ coverage html
 
 # ----------------------- Easy level tests: test Resources with different values ----
+
+
+def test_create_resource_use_fixture(time_tracker, resource_values, resource):
+    assert resource.name == resource_values["name"]
+    assert resource.manufacturer == resource_values["manufacturer"]
+
+
+# -------------------get attribute test -------------------
+def test_create_resource_getattr(resource_values, resource):
+    for attr_name in resource_values:
+        assert getattr(resource, attr_name) == resource_values.get(attr_name)
+
+
+# ----------------------------- testing how faker package works in testing -----------------------------
+def test_name_and_manufacturer_with_faker(fake) -> None:
+    d = [
+        {"cpu": fake.word().capitalize() + " CPU", "manufacturer": fake.company()}
+        for _ in range(100)
+    ]
+    for dictionary in d:
+        r = Resources(dictionary["cpu"], dictionary["manufacturer"])
+        with check:
+            assert r.name == dictionary["cpu"]
+        with check:
+            assert r.manufacturer == dictionary["manufacturer"]
+
+
+# ------------------------tests that allow  to fail the test----------------------------------
 
 
 @pytest.mark.parametrize(
@@ -329,23 +369,27 @@ def test_namedtuple_fields() -> None:
     assert rr._nt_resource()._fields == expected_fields
 
 
-# ----------------------------- testing how faker package works in testing -----------------------------
-def test_name_and_manufacturer_with_faker(fake) -> None:
-    d = [
-        {"cpu": fake.word().capitalize() + " CPU", "manufacturer": fake.company()}
-        for _ in range(100)
-    ]
-    for dictionary in d:
-        r = Resources(dictionary["cpu"], dictionary["manufacturer"])
-        with check:
-            assert r.name == dictionary["cpu"]
-        with check:
-            assert r.manufacturer == dictionary["manufacturer"]
-
-
 # ------------------Test exceptions raised and text of exception correct-----------------------
 """Medium Level Test - test the program runs correctly
 given the wrong input information."""
+
+
+@pytest.mark.parametrize(
+    "name, exception", [("", ValueError), (None, ValueError), (10, TypeError)]
+)
+def test_create_invalid_name(name, exception, resource_values):
+    resource_values["name"] = name
+    with pytest.raises(exception):
+        Resources(**resource_values)
+
+
+@pytest.mark.parametrize(
+    "number, exception", [(10.5, TypeError), (-1, ValueError), (0, ValueError)]
+)
+def test_create_invalid_purchase(number, exception, resource_values):
+    with pytest.raises(exception):
+        r = Resources(**resource_values)
+        r.purchase(number)
 
 
 def test_raise_type_exception_should_pass_easy() -> None:

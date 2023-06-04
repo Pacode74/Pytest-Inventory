@@ -1,6 +1,9 @@
 # conftest.py
 import pytest
 from faker import Faker
+from inventory_application.apps.resources import Resources
+from datetime import datetime, timedelta
+from typing import Callable
 
 
 # --------------------- used for basic test to check that CI works correctly------------------
@@ -17,6 +20,17 @@ def demo_fixt(request):
     """fixture for basic test to test basic app"""
     # print(f'{request.param=}')
     return request.param
+
+
+# ---------- for test_resources.py----------------------
+@pytest.fixture
+def resource_values():
+    return {"name": "Parrot", "manufacturer": "Pirates A-Hoy"}
+
+
+@pytest.fixture
+def resource(resource_values):
+    return Resources(**resource_values)
 
 
 # ------------------used in test_repr_method_v2 ----------------------
@@ -353,4 +367,12 @@ def fake():
     return fake
 
 
-# ----------
+# ----------use in any test to truck timing-------------
+@pytest.fixture
+def time_tracker():
+    """In order to use the time tracker in our test we need to mark it as a fixture."""
+    start = datetime.now()
+    yield  # yield and pass the cpu to run the test
+    end = datetime.now()
+    diff = end - start
+    print(f"\n runtime: {diff.total_seconds()}")
