@@ -65,3 +65,61 @@ def cpu_values():
 @pytest.fixture
 def cpu(cpu_values):
     return inventory.CPU(**cpu_values)
+
+
+# ---------- for test_cpu.py----------------------
+@pytest.fixture
+def storage_values():
+    return {
+        "name": "Thumbdrive",
+        "manufacturer": "Sandisk",
+        "total": 10,
+        "allocated": 3,
+        "capacity_gb": 512,
+    }
+
+
+@pytest.fixture
+def storage(storage_values):
+    return inventory.Storage(**storage_values)
+
+
+# ---------- for test_hdd.py----------------------
+
+
+@pytest.fixture
+def hdd_values():
+    return {
+        "name": "1TB SATA HDD",
+        "manufacturer": "Seagate",
+        "total": 10,
+        "allocated": 3,
+        "capacity_gb": 1_000,
+        "size": '3.5"',
+        "rpm": 10_000,
+    }
+
+
+@pytest.fixture
+def hdd(hdd_values):
+    return inventory.HDD(**hdd_values)
+
+
+# ---------- for test_sdd.py----------------------
+
+
+@pytest.fixture
+def ssd_values():
+    return {
+        "name": "Samsung 860 EVO",
+        "manufacturer": "Samsung",
+        "total": 10,
+        "allocated": 3,
+        "capacity_gb": 1_000,
+        "interface": "SATA III",
+    }
+
+
+@pytest.fixture
+def ssd(ssd_values):
+    return inventory.SSD(**ssd_values)
